@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.javan.dao.InboundMapper" >
+  <resultMap id="BaseResultMap" type="com.javan.entity.Inbound" >
+    <id column="purchase_id" property="purchase_id" jdbcType="INTEGER" />
+    <result column="furniture_id" property="furniture_id" jdbcType="INTEGER" />
+    <result column="amount" property="amount" jdbcType="INTEGER" />
+    <result column="date" property="date" jdbcType="DATE" />
+    <result column="position" property="position" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    purchase_id, furniture_id, amount, date, position
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from inbound
+    where purchase_id = #{purchase_id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from inbound
+    where purchase_id = #{purchase_id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.javan.entity.Inbound" >
+    insert into inbound (purchase_id, furniture_id, amount, 
+      date, position)
+    values (#{purchase_id,jdbcType=INTEGER}, #{furniture_id,jdbcType=INTEGER}, #{amount,jdbcType=INTEGER}, 
+      #{date,jdbcType=DATE}, #{position,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.javan.entity.Inbound" >
+    insert into inbound
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="purchase_id != null" >
+        purchase_id,
+      </if>
+      <if test="furniture_id != null" >
+        furniture_id,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="date != null" >
+        date,
+      </if>
+      <if test="position != null" >
+        position,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="purchase_id != null" >
+        #{purchase_id,jdbcType=INTEGER},
+      </if>
+      <if test="furniture_id != null" >
+        #{furniture_id,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=INTEGER},
+      </if>
+      <if test="date != null" >
+        #{date,jdbcType=DATE},
+      </if>
+      <if test="position != null" >
+        #{position,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.javan.entity.Inbound" >
+    update inbound
+    <set >
+      <if test="furniture_id != null" >
+        furniture_id = #{furniture_id,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=INTEGER},
+      </if>
+      <if test="date != null" >
+        date = #{date,jdbcType=DATE},
+      </if>
+      <if test="position != null" >
+        position = #{position,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where purchase_id = #{purchase_id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.javan.entity.Inbound" >
+    update inbound
+    set furniture_id = #{furniture_id,jdbcType=INTEGER},
+      amount = #{amount,jdbcType=INTEGER},
+      date = #{date,jdbcType=DATE},
+      position = #{position,jdbcType=VARCHAR}
+    where purchase_id = #{purchase_id,jdbcType=INTEGER}
+  </update>
+</mapper>

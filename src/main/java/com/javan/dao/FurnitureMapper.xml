@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.javan.dao.FurnitureMapper" >
+  <resultMap id="BaseResultMap" type="com.javan.entity.Furniture" >
+    <id column="furniture_id" property="furniture_id" jdbcType="INTEGER" />
+    <result column="furniture_name" property="furniture_name" jdbcType="VARCHAR" />
+    <result column="furniture_discription" property="furniture_discription" jdbcType="VARCHAR" />
+    <result column="picture_path" property="picture_path" jdbcType="VARCHAR" />
+    <result column="provider" property="provider" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    furniture_id, furniture_name, furniture_discription, picture_path, provider
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from furniture
+    where furniture_id = #{furniture_id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from furniture
+    where furniture_id = #{furniture_id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.javan.entity.Furniture" >
+    insert into furniture (furniture_id, furniture_name, furniture_discription, 
+      picture_path, provider)
+    values (#{furniture_id,jdbcType=INTEGER}, #{furniture_name,jdbcType=VARCHAR}, #{furniture_discription,jdbcType=VARCHAR}, 
+      #{picture_path,jdbcType=VARCHAR}, #{provider,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.javan.entity.Furniture" >
+    insert into furniture
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="furniture_id != null" >
+        furniture_id,
+      </if>
+      <if test="furniture_name != null" >
+        furniture_name,
+      </if>
+      <if test="furniture_discription != null" >
+        furniture_discription,
+      </if>
+      <if test="picture_path != null" >
+        picture_path,
+      </if>
+      <if test="provider != null" >
+        provider,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="furniture_id != null" >
+        #{furniture_id,jdbcType=INTEGER},
+      </if>
+      <if test="furniture_name != null" >
+        #{furniture_name,jdbcType=VARCHAR},
+      </if>
+      <if test="furniture_discription != null" >
+        #{furniture_discription,jdbcType=VARCHAR},
+      </if>
+      <if test="picture_path != null" >
+        #{picture_path,jdbcType=VARCHAR},
+      </if>
+      <if test="provider != null" >
+        #{provider,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.javan.entity.Furniture" >
+    update furniture
+    <set >
+      <if test="furniture_name != null" >
+        furniture_name = #{furniture_name,jdbcType=VARCHAR},
+      </if>
+      <if test="furniture_discription != null" >
+        furniture_discription = #{furniture_discription,jdbcType=VARCHAR},
+      </if>
+      <if test="picture_path != null" >
+        picture_path = #{picture_path,jdbcType=VARCHAR},
+      </if>
+      <if test="provider != null" >
+        provider = #{provider,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where furniture_id = #{furniture_id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.javan.entity.Furniture" >
+    update furniture
+    set furniture_name = #{furniture_name,jdbcType=VARCHAR},
+      furniture_discription = #{furniture_discription,jdbcType=VARCHAR},
+      picture_path = #{picture_path,jdbcType=VARCHAR},
+      provider = #{provider,jdbcType=VARCHAR}
+    where furniture_id = #{furniture_id,jdbcType=INTEGER}
+  </update>
+</mapper>
