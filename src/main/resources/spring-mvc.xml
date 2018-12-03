@@ -21,7 +21,7 @@
 		class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
 		<property name="supportedMediaTypes">
 			<list>
-				<value>text/html;charset=UTF-8</value>
+				<value>application/json;charset=UTF-8</value>
 			</list>
 		</property>
 	</bean>
@@ -38,7 +38,7 @@
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<!-- 这里的配置我的理解是自动给后面action的方法return的字符串加上前缀和后缀，变成一个 可用的url地址 -->
 		<!-- <property name="prefix" value="/WEB-INF/jsp/" /> -->
-		<property name="prefix" value="/WEB-INF/pages/" />
+		<property name="prefix" value="/WEB-INF/jsp/" />
 		<property name="suffix" value=".jsp" />
 		<property name="order" value="1" />
 	</bean>
@@ -47,11 +47,11 @@
 	<!-- 启用基于Spring的注解 -->
 	<context:annotation-config/>
 
-	<!--&lt;!&ndash; 静态资源处理 &ndash;&gt;
-	&lt;!&ndash; 比如图片 js,css文件等静态资源 &ndash;&gt;
-	<mvc:resources mapping="/css/**" location="/styset/css/" />
-	<mvc:resources mapping="/js/**" location="/styset/js/" />
-	<mvc:resources mapping="/imgs/**" location="/styset/imgs/" />-->
+	<!--&lt;!&ndash; 静态资源处理 -->
+	<!-- 比如图片 js,css文件等静态资源 -->
+	<mvc:resources mapping="/css/**" location="/WEB-INF/css/" />
+	<mvc:resources mapping="/js/**" location="/WEB-INF/js/" />
+	<mvc:resources mapping="/imgs/**" location="/WEB-INF/img/" />
 
      
 </beans> 

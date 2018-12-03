@@ -45,6 +45,19 @@
   
     <!-- spring和MyBatis完美整合，不需要mybatis的配置映射文件 -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!--pagehelper的配置-->
+        <property name="plugins">
+            <array>
+                <bean class="com.github.pagehelper.PageInterceptor">
+                    <property name="properties">
+                        <!--使用下面的方式配置参数，一行配置一个 -->
+                        <value>
+                            helpDialect=mysql
+                        </value>
+                    </property>
+                </bean>
+            </array>
+        </property>
         <property name="dataSource" ref="dataSource" />
         <property name="mapperLocations" value="classpath:com/javan/dao/*.xml"></property>
         <!-- 自动扫描mapping.xml文件 -->

@@ -1,0 +1,36 @@
+
+<html>
+<head>
+    <title>家具管理系统</title>
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="http://www.w3cschool.cc/try/jeasyui/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="http://www.w3cschool.cc/try/jeasyui/themes/icon.css">
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.1.min.js"></script>
+	<script type="text/javascript" src="http://www.w3cschool.cc/try/jeasyui/jquery.easyui.min.js"></script>
+</head>
+<body class="easyui-layout">
+    <div class="divNorth" style="height:100px;" data-options="region:'north'" ></div>
+    <div class="divWest" style="width: 200px" data-options="region:'west'">
+        <div class="easyui-accordion" style="padding:0px;">
+            <div title="库存管理">
+            	<ul id="store" class="easyui-tree">
+					<li>库存管理</li>
+					<li>进货管理</li>
+					<li>订单管理</li>
+            	</ul>
+            </div>
+            <div title="用户管理">
+            	<ul id="systems" class="easyui-tree">
+					<li>用户管理</li>
+					<li>角色管理</li>
+            	</ul>
+            </div>
+        </div>
+    </div>
+    <div id="content" region="center" title="Language" style="padding:5px;">
+		<div class="easyui-tabs" >
+   		</div>
+    </div>
+</div>
+</body>
+</html>
