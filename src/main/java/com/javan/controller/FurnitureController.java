@@ -5,8 +5,12 @@ import com.javan.entity.Furniture;
 import com.javan.entity.Status;
 import com.javan.service.FurnitureService;
 import com.sun.deploy.net.HttpResponse;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 
 @Controller
@@ -36,23 +41,38 @@ public class FurnitureController {
 
         @RequestMapping(value="/furniture/insert",method = RequestMethod.POST)
         @ResponseBody
-        public Status insert(Furniture f){
-                fs.insert(f);
+        @RequiresPermissions({"furniture:insert"})
+        public Status insert(@Validated Furniture f, BindingResult bindingResult){
                 Status s=new Status();
+                if(bindingResult.hasErrors()){
+                        FieldError fieldError = bindingResult.getFieldError();
+                        s.setMsg(fieldError.getDefaultMessage());
+                        s.setstatus(400);
+                        return s;
+                }
+                fs.insert(f);
                 s.setstatus(200);
                 return s;
         }
 
         @RequestMapping(value="/furniture/update",method = RequestMethod.POST)
         @ResponseBody
-        public Status update(Furniture f){
-                fs.updata(f);
+        @RequiresPermissions({"furniture:update"})
+        public Status update(@Validated Furniture f, BindingResult bindingResult){
                 Status s=new Status();
+                if(bindingResult.hasErrors()){
+                        FieldError fieldError = bindingResult.getFieldError();
+                        s.setMsg(fieldError.getDefaultMessage());
+                        s.setstatus(400);
+                        return s;
+                }
+                fs.updata(f);
                 s.setstatus(200);
                 return s;
         }
         @RequestMapping(value="/furniture/delete_batch",method = RequestMethod.POST)
         @ResponseBody
+        @RequiresPermissions({"furniture:delete"})
         public Status delete(Integer[] ids){
                 fs.delete_batch(ids);
                 Status s=new Status();

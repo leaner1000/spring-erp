@@ -1,5 +1,7 @@
 package com.javan.entity;
 
+import javax.validation.constraints.Size;
+
 public class Furniture {
     private Integer furniture_id;
 

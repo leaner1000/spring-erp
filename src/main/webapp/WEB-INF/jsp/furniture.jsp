@@ -53,6 +53,7 @@
             ids.push(sels[i].furniture_id);
         }
         ids = ids.join(",");
+        console.log(ids)
         return ids;
     }
 

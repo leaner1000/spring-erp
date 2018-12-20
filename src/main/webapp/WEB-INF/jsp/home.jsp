@@ -17,7 +17,7 @@
         <div title="库存管理">
             <ul id="store" class="easyui-tree">
                 <li data-options="attributes:{'url':'/furniture'}">库存管理</li>
-                <li>进货管理</li>
+                <li data-options="attributes:{'url':'/outbound'}">出货管理</li>
                 <li>订单管理</li>
             </ul>
         </div>
