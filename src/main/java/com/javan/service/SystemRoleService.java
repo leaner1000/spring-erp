@@ -1,5 +1,6 @@
 package com.javan.service;
 
+
 import java.util.ArrayList;
 
 public interface SystemRoleService {

@@ -1,9 +1,5 @@
 package com.javan.shiro;
 
-import com.javan.dao.SystemPermissionMapper;
-import com.javan.dao.SystemRoleMapper;
-import com.javan.dao.SystemUserMapper;
-import com.javan.entity.SystemRole;
 import com.javan.entity.SystemUser;
 import com.javan.service.SystemPermissionService;
 import com.javan.service.SystemRoleService;

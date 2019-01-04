@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.javan.dao.PurchaseMapper" >
+  <resultMap id="BaseResultMap" type="com.javan.entity.Purchase" >
+    <id column="purchase_id" property="purchase_id" jdbcType="INTEGER" />
+    <result column="guest_id" property="guest_id" jdbcType="VARCHAR" />
+    <result column="furniture_name" property="furniture_name" jdbcType="VARCHAR" />
+    <result column="furniture_id" property="furniture_id" jdbcType="INTEGER" />
+    <result column="purchase_date" property="purchase_date" jdbcType="TIMESTAMP" />
+    <result column="amount" property="amount" jdbcType="VARCHAR" />
+    <result column="total_price" property="total_price" jdbcType="DECIMAL" />
+    <result column="receive_money" property="receive_money" jdbcType="VARCHAR" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    purchase_id, guest_id, furniture_name, furniture_id, purchase_date, amount, total_price, 
+    receive_money, remarks
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.javan.entity.PurchaseExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from purchase
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from purchase
+    where purchase_id = #{purchase_id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from purchase
+    where purchase_id = #{purchase_id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.javan.entity.PurchaseExample" >
+    delete from purchase
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.javan.entity.Purchase" >
+    insert into purchase (purchase_id, guest_id, furniture_name, 
+      furniture_id, purchase_date, amount, 
+      total_price, receive_money, remarks
+      )
+    values (#{purchase_id,jdbcType=INTEGER}, #{guest_id,jdbcType=VARCHAR}, #{furniture_name,jdbcType=VARCHAR}, 
+      #{furniture_id,jdbcType=INTEGER}, #{purchase_date,jdbcType=TIMESTAMP}, #{amount,jdbcType=VARCHAR}, 
+      #{total_price,jdbcType=DECIMAL}, #{receive_money,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.javan.entity.Purchase" >
+    insert into purchase
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="purchase_id != null" >
+        purchase_id,
+      </if>
+      <if test="guest_id != null" >
+        guest_id,
+      </if>
+      <if test="furniture_name != null" >
+        furniture_name,
+      </if>
+      <if test="furniture_id != null" >
+        furniture_id,
+      </if>
+      <if test="purchase_date != null" >
+        purchase_date,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+      <if test="total_price != null" >
+        total_price,
+      </if>
+      <if test="receive_money != null" >
+        receive_money,
+      </if>
+      <if test="remarks != null" >
+        remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="purchase_id != null" >
+        #{purchase_id,jdbcType=INTEGER},
+      </if>
+      <if test="guest_id != null" >
+        #{guest_id,jdbcType=VARCHAR},
+      </if>
+      <if test="furniture_name != null" >
+        #{furniture_name,jdbcType=VARCHAR},
+      </if>
+      <if test="furniture_id != null" >
+        #{furniture_id,jdbcType=INTEGER},
+      </if>
+      <if test="purchase_date != null" >
+        #{purchase_date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=VARCHAR},
+      </if>
+      <if test="total_price != null" >
+        #{total_price,jdbcType=DECIMAL},
+      </if>
+      <if test="receive_money != null" >
+        #{receive_money,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.javan.entity.PurchaseExample" resultType="java.lang.Integer" >
+    select count(*) from purchase
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update purchase
+    <set >
+      <if test="record.purchase_id != null" >
+        purchase_id = #{record.purchase_id,jdbcType=INTEGER},
+      </if>
+      <if test="record.guest_id != null" >
+        guest_id = #{record.guest_id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.furniture_name != null" >
+        furniture_name = #{record.furniture_name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.furniture_id != null" >
+        furniture_id = #{record.furniture_id,jdbcType=INTEGER},
+      </if>
+      <if test="record.purchase_date != null" >
+        purchase_date = #{record.purchase_date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.amount != null" >
+        amount = #{record.amount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.total_price != null" >
+        total_price = #{record.total_price,jdbcType=DECIMAL},
+      </if>
+      <if test="record.receive_money != null" >
+        receive_money = #{record.receive_money,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remarks != null" >
+        remarks = #{record.remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update purchase
+    set purchase_id = #{record.purchase_id,jdbcType=INTEGER},
+      guest_id = #{record.guest_id,jdbcType=VARCHAR},
+      furniture_name = #{record.furniture_name,jdbcType=VARCHAR},
+      furniture_id = #{record.furniture_id,jdbcType=INTEGER},
+      purchase_date = #{record.purchase_date,jdbcType=TIMESTAMP},
+      amount = #{record.amount,jdbcType=VARCHAR},
+      total_price = #{record.total_price,jdbcType=DECIMAL},
+      receive_money = #{record.receive_money,jdbcType=VARCHAR},
+      remarks = #{record.remarks,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.javan.entity.Purchase" >
+    update purchase
+    <set >
+      <if test="guest_id != null" >
+        guest_id = #{guest_id,jdbcType=VARCHAR},
+      </if>
+      <if test="furniture_name != null" >
+        furniture_name = #{furniture_name,jdbcType=VARCHAR},
+      </if>
+      <if test="furniture_id != null" >
+        furniture_id = #{furniture_id,jdbcType=INTEGER},
+      </if>
+      <if test="purchase_date != null" >
+        purchase_date = #{purchase_date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=VARCHAR},
+      </if>
+      <if test="total_price != null" >
+        total_price = #{total_price,jdbcType=DECIMAL},
+      </if>
+      <if test="receive_money != null" >
+        receive_money = #{receive_money,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where purchase_id = #{purchase_id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.javan.entity.Purchase" >
+    update purchase
+    set guest_id = #{guest_id,jdbcType=VARCHAR},
+      furniture_name = #{furniture_name,jdbcType=VARCHAR},
+      furniture_id = #{furniture_id,jdbcType=INTEGER},
+      purchase_date = #{purchase_date,jdbcType=TIMESTAMP},
+      amount = #{amount,jdbcType=VARCHAR},
+      total_price = #{total_price,jdbcType=DECIMAL},
+      receive_money = #{receive_money,jdbcType=VARCHAR},
+      remarks = #{remarks,jdbcType=VARCHAR}
+    where purchase_id = #{purchase_id,jdbcType=INTEGER}
+  </update>
+</mapper>

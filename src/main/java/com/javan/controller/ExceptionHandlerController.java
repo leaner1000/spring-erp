@@ -1,11 +1,13 @@
 package com.javan.controller;
 
 import com.javan.entity.Status;
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import org.apache.shiro.authz.UnauthorizedException;
-import org.springframework.stereotype.Controller;
+import org.springframework.jdbc.support.SQLErrorCodeSQLExceptionTranslator;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartException;
 
 @ControllerAdvice
 public class ExceptionHandlerController{
@@ -15,6 +17,22 @@ public class ExceptionHandlerController{
         Status s=new Status();
         s.setstatus(400);
         s.setMsg("没有权限");
+        return s;
+    }
+    @ExceptionHandler({MultipartException.class})
+    @ResponseBody
+    public Status MultipartExceptionHandler(Exception e){
+        Status s=new Status();
+        s.setstatus(400);
+        s.setMsg("上传失败");
+        return s;
+    }
+    @ExceptionHandler({Exception.class})
+    @ResponseBody
+    public Status ExceptionHandler(Exception e){
+        Status s=new Status();
+        s.setstatus(400);
+        s.setMsg("约束错误");
         return s;
     }
 }

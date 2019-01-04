@@ -23,6 +23,18 @@
                 </td>
             </tr>
             <tr>
+                <td>所在仓库</td>
+                <td>
+                    <input class="easyui-textbox" type="text" name="warehouse_id"/>
+                </td>
+            </tr>
+            <tr>
+                <td>剩余数量</td>
+                <td>
+                    <input class="easyui-textbox" type="text" name="amount"/>
+                </td>
+            </tr>
+            <tr>
                 <td>提供商</td>
                 <td>
                     <input class="easyui-textbox" type="text" name="provider"/>
@@ -43,7 +55,7 @@
                 console.log($("#furnitureEditForm").serialize())
                 $.post("furniture/update",$("#furnitureEditForm").serialize(), function(data){
                     if(data.status == 200){
-                        $.messager.alert('提示','修改客户成功!','info',function(){
+                        $.messager.alert('提示','修改成功!','info',function(){
                             $("#furnitureEditWindow").window('close');
                             $("#furnitureList").datagrid("reload");
                         });

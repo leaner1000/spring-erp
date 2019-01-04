@@ -43,6 +43,9 @@
     </init-param>
     <load-on-startup>1</load-on-startup>
     <async-supported>true</async-supported>
+    <multipart-config>
+      <max-file-size>200000</max-file-size>
+    </multipart-config>
   </servlet>
   <servlet-mapping>
     <servlet-name>SpringMVC</servlet-name>

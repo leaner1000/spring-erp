@@ -43,7 +43,7 @@
         console.log($("#outboundEditForm").serialize())
         $.post("outbound/update",$("#outboundEditForm").serialize(), function(data){
             if(data.status == 200){
-                $.messager.alert('提示','修改客户成功!','info',function(){
+                $.messager.alert('提示','修改成功!','info',function(){
                     $("#outboundEditWindow").window('close');
                     $("#outboundList").datagrid("reload");
                 });

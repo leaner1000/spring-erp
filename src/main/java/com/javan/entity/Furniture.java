@@ -1,7 +1,5 @@
 package com.javan.entity;
 
-import javax.validation.constraints.Size;
-
 public class Furniture {
     private Integer furniture_id;
 
@@ -12,6 +10,10 @@ public class Furniture {
     private String picture_path;
 
     private String provider;
+
+    private String warehouse_id;
+
+    private Integer amount;
 
     public Integer getFurniture_id() {
         return furniture_id;
@@ -51,5 +53,21 @@ public class Furniture {
 
     public void setProvider(String provider) {
         this.provider = provider == null ? null : provider.trim();
+    }
+
+    public String getWarehouse_id() {
+        return warehouse_id;
+    }
+
+    public void setWarehouse_id(String warehouse_id) {
+        this.warehouse_id = warehouse_id == null ? null : warehouse_id.trim();
+    }
+
+    public Integer getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Integer amount) {
+        this.amount = amount;
     }
 }

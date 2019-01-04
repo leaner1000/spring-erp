@@ -33,16 +33,15 @@
                 </td>
             </tr>
         </table>
-        <input type="hidden" name="customParams"/>
     </form>
     <div style="padding:5px">
-        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitOuntboundAddForm()">提交</a>
-        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearOuntboundAddForm()">重置</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitOutboundAddForm()">提交</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearOutboundAddForm()">重置</a>
     </div>
 </div>
 <script>
 
-    function submitOuntboundAddForm(){
+    function submitOutboundAddForm(){
 //有效性验证
         if(!$('#outboundAddForm').form('validate')){
             $.messager.alert('提示','表单还未填写完成!');
@@ -52,7 +51,7 @@
 //$("#customAddForm").serialize()将表单序列号为key-value形式的字符串
         $.post("/outbound/insert",$("#outboundAddForm").serialize(), function(data){
             if(data.status == 200){
-                $.messager.alert('提示','新增家具出库信息成功!');
+                $.messager.alert('提示','新增成功!');
                 clearOutBoundAddForm();
                 $("#outboundAddWindow").window('close');
                 $("#outboundList").datagrid("reload");
@@ -62,7 +61,7 @@
         });
     }
 
-    function clearOuntboundAddForm(){
+    function clearOutboundAddForm(){
         $('#outboundAddForm').form('reset');
     }
 </script>

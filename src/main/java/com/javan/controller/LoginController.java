@@ -1,5 +1,6 @@
 package com.javan.controller;
 
+import com.javan.entity.Status;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -21,34 +22,51 @@ import java.util.Map;
 
 @Controller
 public class LoginController {
+
     @RequestMapping(value="/login",method=RequestMethod.POST)
     @ResponseBody
-    public Map<String,Object> Login(@RequestParam String username,@RequestParam String password,@RequestParam(required=false) String validate_code,HttpSession session){
-        Map<String,Object> map = new HashMap();
+    public Status Login(@RequestParam String username, @RequestParam String password, @RequestParam(required=false) String validate_code, HttpSession session){
+        Status s = new Status();
+        s.setstatus(200);
         Subject currentUser = SecurityUtils.getSubject();
         if(!validate_code.equals(session.getAttribute("validate_code"))){
-            map.put("msg","验证码错误");
-            return map;
+            s.setMsg("验证码错误");
+            s.setstatus(400);
+            return s;
         }
         if (!currentUser.isAuthenticated()) {
             UsernamePasswordToken token = new UsernamePasswordToken(username, password);
             try{
                 currentUser.login(token);
             }catch(UnknownAccountException ex){
-                map.put("msg", "account_error");
+                s.setMsg("用户不存在");
+                s.setstatus(400);
             }catch(IncorrectCredentialsException ex){
-                map.put("msg", "password_error");
+                s.setMsg("密码错误");
+                s.setstatus(400);
             }catch(AuthenticationException ex){
-                map.put("msg", "authentication_error");
+                s.setMsg("没有权限");
+                s.setstatus(400);
             }
         }
-        return map;
+        return s;
     }
+
+    @RequestMapping(value = "/logout",method = RequestMethod.GET)
+    public void logout(){
+        Subject subject=SecurityUtils.getSubject();
+        subject.logout();
+    }
+
     @RequestMapping(value="/validate",method=RequestMethod.GET)
     public String validate(){
         return "validate";
     }
 
+    @RequestMapping(value="/home",method = RequestMethod.GET)
+    public String home(){
+        return "home";
+    }
 
     @RequestMapping(value="/",method=RequestMethod.GET)
     public String login(){

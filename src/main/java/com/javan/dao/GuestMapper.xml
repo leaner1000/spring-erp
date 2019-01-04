@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.javan.dao.GuestMapper" >
+  <resultMap id="BaseResultMap" type="com.javan.entity.Guest" >
+    <id column="guest_id" property="guest_id" jdbcType="INTEGER" />
+    <result column="guest_name" property="guest_name" jdbcType="VARCHAR" />
+    <result column="consume_amount" property="consume_amount" jdbcType="INTEGER" />
+    <result column="phone_num" property="phone_num" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    guest_id, guest_name, consume_amount, phone_num, address
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.javan.entity.GuestExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from guest
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from guest
+    where guest_id = #{guest_id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from guest
+    where guest_id = #{guest_id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.javan.entity.GuestExample" >
+    delete from guest
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.javan.entity.Guest" >
+    insert into guest (guest_id, guest_name, consume_amount, 
+      phone_num, address)
+    values (#{guest_id,jdbcType=INTEGER}, #{guest_name,jdbcType=VARCHAR}, #{consume_amount,jdbcType=INTEGER}, 
+      #{phone_num,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.javan.entity.Guest" >
+    insert into guest
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="guest_id != null" >
+        guest_id,
+      </if>
+      <if test="guest_name != null" >
+        guest_name,
+      </if>
+      <if test="consume_amount != null" >
+        consume_amount,
+      </if>
+      <if test="phone_num != null" >
+        phone_num,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="guest_id != null" >
+        #{guest_id,jdbcType=INTEGER},
+      </if>
+      <if test="guest_name != null" >
+        #{guest_name,jdbcType=VARCHAR},
+      </if>
+      <if test="consume_amount != null" >
+        #{consume_amount,jdbcType=INTEGER},
+      </if>
+      <if test="phone_num != null" >
+        #{phone_num,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.javan.entity.GuestExample" resultType="java.lang.Integer" >
+    select count(*) from guest
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update guest
+    <set >
+      <if test="record.guest_id != null" >
+        guest_id = #{record.guest_id,jdbcType=INTEGER},
+      </if>
+      <if test="record.guest_name != null" >
+        guest_name = #{record.guest_name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.consume_amount != null" >
+        consume_amount = #{record.consume_amount,jdbcType=INTEGER},
+      </if>
+      <if test="record.phone_num != null" >
+        phone_num = #{record.phone_num,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null" >
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update guest
+    set guest_id = #{record.guest_id,jdbcType=INTEGER},
+      guest_name = #{record.guest_name,jdbcType=VARCHAR},
+      consume_amount = #{record.consume_amount,jdbcType=INTEGER},
+      phone_num = #{record.phone_num,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.javan.entity.Guest" >
+    update guest
+    <set >
+      <if test="guest_name != null" >
+        guest_name = #{guest_name,jdbcType=VARCHAR},
+      </if>
+      <if test="consume_amount != null" >
+        consume_amount = #{consume_amount,jdbcType=INTEGER},
+      </if>
+      <if test="phone_num != null" >
+        phone_num = #{phone_num,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where guest_id = #{guest_id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.javan.entity.Guest" >
+    update guest
+    set guest_name = #{guest_name,jdbcType=VARCHAR},
+      consume_amount = #{consume_amount,jdbcType=INTEGER},
+      phone_num = #{phone_num,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR}
+    where guest_id = #{guest_id,jdbcType=INTEGER}
+  </update>
+</mapper>

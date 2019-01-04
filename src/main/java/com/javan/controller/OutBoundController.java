@@ -4,6 +4,7 @@ import com.javan.entity.EUDataGridResult;
 import com.javan.entity.OutBound;
 import com.javan.entity.Status;
 import com.javan.service.OutBoundService;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,16 +30,22 @@ public class OutBoundController {
 
     @RequestMapping(value="/outbound/insert",method = RequestMethod.POST)
     @ResponseBody
+    @RequiresPermissions({"outbound:add"})
     public Status insert(OutBound o){
-        System.out.print(o);
-        ob.insert(o);
         Status s=new Status();
+        if(ob.getByid(o.getOutbound_id())!=null){
+            s.setstatus(400);
+            s.setMsg("编号重复");
+            return s;
+        }
+        ob.insert(o);
         s.setstatus(200);
         return s;
     }
 
     @RequestMapping(value="/outbound/update",method = RequestMethod.POST)
     @ResponseBody
+    @RequiresPermissions({"outbound:update"})
     public Status update(OutBound o){
         ob.updata(o);
         Status s=new Status();
@@ -47,6 +54,7 @@ public class OutBoundController {
     }
     @RequestMapping(value="/outbound/delete_batch",method = RequestMethod.POST)
     @ResponseBody
+    @RequiresPermissions({"outbound:delete"})
     public Status delete(Integer[] ids){
         ob.delete_batch(ids);
         Status s=new Status();
